@@ -21,7 +21,7 @@ export default defineConfig({
     port: 789,
     proxy: {
       '/api': {
-         target: '', //http://182.255.62.173:7878/api
+         target: 'http://api.ybl-7777.com/api', //http://182.255.62.173:7878/api
         //ws: true,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '')

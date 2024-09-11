@@ -1,10 +1,29 @@
 <script setup>
-import { ref } from "vue";
+import { ref,onMounted,computed } from "vue";
+import allApi from "@/network/allApi.js";
+import { useStore } from "vuex";
+
+const store = useStore()
 const loading = ref(true)
     setTimeout(() => {
       loading.value = false
     }, 1500)
 
+const getCaptcha = async () => {
+  try {
+      const res = await allApi.GetCaptcha()
+      console.log(res,"ddddd");
+      if(res.data.code === 200 && res.data.status === 'success') {
+        store.commit('app/CAPTCHA',res?.data?.data)
+      }
+     
+    } catch (error) {
+      console.log(error)
+    } 
+}
+onMounted(()=>{
+  getCaptcha()
+})
 </script>
 <template>
   <div  class="w-full h-screen relative sm:max-w-md sm:mx-auto bg-[#edf2fd]">
